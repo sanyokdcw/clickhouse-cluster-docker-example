@@ -538,15 +538,7 @@
 
     <zookeeper>
         <node>
-            <host>zoo1</host>
-            <port>2181</port>
-        </node>
-        <node>
-            <host>zoo2</host>
-            <port>2181</port>
-        </node>
-        <node>
-            <host>zoo3</host>
+            <host>zookeeper</host>
             <port>2181</port>
         </node>
     </zookeeper>
