@@ -20,6 +20,7 @@ services:
     volumes:
       - ./config1.xml:/etc/clickhouse-server/config.xml
       - clickhouse01_data:/var/lib/clickhouse
+      - ./clickhouse01_logs:/var/log/clickhouse-server
     ports:
       - "8123:8123" # Port for HTTP interface
       - "9000:9000" # Port for native client
@@ -32,6 +33,7 @@ services:
     volumes:
       - ./config2.xml:/etc/clickhouse-server/config.xml
       - clickhouse02_data:/var/lib/clickhouse
+      - ./clickhouse02_logs:/var/log/clickhouse-server
     ports:
       - "8124:8123"
       - "9001:9000"
