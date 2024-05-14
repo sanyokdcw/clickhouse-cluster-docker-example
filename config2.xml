@@ -489,22 +489,6 @@
     <!-- Configuration of clusters that could be used in Distributed tables.
          https://clickhouse.tech/docs/en/operations/table_engines/distributed/
       -->
-    <remote_servers>
-        <default>
-             <shard>
-                 <replica>
-                     <host>clickhouse01</host>
-                     <port>9000</port>
-                 </replica>
-             </shard>
-             <shard>
-                 <replica>
-                     <host>clickhouse02</host>
-                     <port>9000</port>
-                 </replica>
-             </shard>
-        </default>
-    </remote_servers>
 
     <!-- The list of hosts allowed to use in URL-related storage engines and table functions.
         If this section is not present in configuration, all hosts are allowed.
@@ -550,11 +534,25 @@
          See https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/replication/#creating-replicated-tables
       -->
 
-    <macros>
-        <shard>01</shard>
-        <replica>02</replica>
-    </macros>
-
+        <macros>
+            <shard>shard1</shard>
+            <replica>replica2</replica>
+        </macros>
+        <remote_servers>
+            <default>
+                <shard>
+                    <internal_replication>true</internal_replication>
+                    <replica>
+                        <host>clickhouse01</host>
+                        <port>9000</port>
+                    </replica>
+                    <replica>
+                        <host>clickhouse02</host>
+                        <port>9000</port>
+                    </replica>
+                </shard>
+            </default>
+        </remote_servers>
 
 
     <!-- Reloading interval for embedded dictionaries, in seconds. Default: 3600. -->
