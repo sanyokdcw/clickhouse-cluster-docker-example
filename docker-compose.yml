@@ -1,0 +1,64 @@
+version: "3"
+services:
+  zoo1:
+    image: zookeeper:3.7
+    hostname: zoo1
+    ports:
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+    networks:
+      - zoo-net
+
+  zoo2:
+    image: zookeeper:3.7
+    hostname: zoo2
+    ports:
+      - "2182:2181"
+      - "2889:2888"
+      - "3889:3888"
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+    networks:
+      - zoo-net
+
+  zoo3:
+    image: zookeeper:3.7
+    hostname: zoo3
+    ports:
+      - "2183:2181"
+      - "2890:2888"
+      - "3890:3888"
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+    networks:
+      - zoo-net
+
+  clickhouse01:
+    image: yandex/clickhouse-server
+    volumes:
+      - ./config.xml:/etc/clickhouse-server/config.xml
+    ports:
+      - "8123:8123" # Port for HTTP interface
+      - "9000:9000" # Port for native client
+    networks:
+      - zoo-net
+
+  clickhouse02:
+    image: yandex/clickhouse-server
+    volumes:
+      - ./config.xml:/etc/clickhouse-server/config.xml
+    ports:
+      - "8124:8123"
+      - "9001:9000"
+    networks:
+      - zoo-net
+
+networks:
+  zoo-net:
+    driver: bridge
