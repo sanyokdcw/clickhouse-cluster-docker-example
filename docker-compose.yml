@@ -18,7 +18,7 @@ services:
     image: yandex/clickhouse-server
     container_name: clickhouse01
     volumes:
-      - ./config.xml:/etc/clickhouse-server/config.xml
+      - ./config1.xml:/etc/clickhouse-server/config.xml
       - clickhouse01_data:/var/lib/clickhouse
     ports:
       - "8123:8123" # Port for HTTP interface
@@ -30,7 +30,7 @@ services:
     image: yandex/clickhouse-server
     container_name: clickhouse02
     volumes:
-      - ./config.xml:/etc/clickhouse-server/config.xml
+      - ./config2.xml:/etc/clickhouse-server/config.xml
       - clickhouse02_data:/var/lib/clickhouse
     ports:
       - "8124:8123"
